@@ -4,7 +4,7 @@ import { Controller, Get, Post } from '@nestjs/common';
 export class UsersController {
   @Get()
   findAll(): string {
-    return 'This action returns cats';
+    return 'This action returns super cats';
   }
 
   @Post()
