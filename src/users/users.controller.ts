@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -7,8 +7,8 @@ export class UsersController {
     return 'This action returns super cats';
   }
 
-  @Post()
-  findOne(): string {
-    return 'Hi Jon';
+  @Get(':id')
+  findOne(@Param('id') id: string): string {
+    return `Hi Jon ${id}`;
   }
 }
