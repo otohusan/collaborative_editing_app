@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '../../interfaces/user.interfaces';
-import { Articles } from 'interfaces/articles.interfaces';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
@@ -29,12 +28,6 @@ export class UsersService {
     });
 
     return user;
-  }
-
-  async getUserArticles(user_id: number): Promise<Articles[]> {
-    const user = this.findOne(user_id);
-
-    return (await user).articles;
   }
 
   create(user: User) {
