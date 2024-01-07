@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { Articles } from 'interfaces/articles.interfaces';
 import { ArticlesService } from './articles.service';
 
@@ -6,10 +6,20 @@ import { ArticlesService } from './articles.service';
 export class ArticlesController {
   constructor(private readonly articleService: ArticlesService) {}
 
+  @Get()
+  async getArticles(): Promise<Articles[]> {
+    return this.articleService.getArticles();
+  }
+
   @Get('user/:id')
-  async getArticles(@Param('id') id: string): Promise<Articles[]> {
+  async getUserArticles(@Param('id') id: string): Promise<Articles[]> {
     // paramはstringで取得されるのでnumberに変換する必要がある
     const user_id = parseInt(id, 10);
     return this.articleService.getUserArticles(user_id);
+  }
+
+  @Post()
+  async createArticles(@Body() createArticleDto: Articles): Promise<Articles> {
+    return this.articleService.createArticle(createArticleDto);
   }
 }
