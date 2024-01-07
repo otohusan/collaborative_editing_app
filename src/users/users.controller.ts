@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { User } from 'interfaces/user.interfaces';
+import { Articles } from 'interfaces/articles.interfaces';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -13,8 +14,16 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
+    // paramはstringで取得されるのでnumberに変換する必要がある
     const user_id = parseInt(id, 10);
     return this.usersService.findOne(user_id);
+  }
+
+  @Get('articles/:id')
+  async getArticles(@Param('id') id: string): Promise<Articles[]> {
+    // paramはstringで取得されるのでnumberに変換する必要がある
+    const user_id = parseInt(id, 10);
+    return this.usersService.getUserArticles(user_id);
   }
 
   @Post()
