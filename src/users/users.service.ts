@@ -17,6 +17,16 @@ export class UsersService {
     return allUsers;
   }
 
+  async findOne(user_id: number): Promise<User> {
+    const user = await this.prisma.users.findUnique({
+      where: {
+        id: user_id,
+      },
+    });
+
+    return user;
+  }
+
   create(user: User) {
     this.users.push(user);
     return this.users;

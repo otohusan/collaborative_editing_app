@@ -12,8 +12,9 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): string {
-    return `Hi Jon ${id}`;
+  async findOne(@Param('id') id: string): Promise<User> {
+    const user_id = parseInt(id, 10);
+    return this.usersService.findOne(user_id);
   }
 
   @Post()
