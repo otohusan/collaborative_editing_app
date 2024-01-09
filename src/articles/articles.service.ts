@@ -11,11 +11,13 @@ export class ArticlesService {
     this.prisma = new PrismaClient();
   }
 
+  // 全記事を取得
   async getArticles(): Promise<Articles[]> {
     const articles = await this.prisma.articles.findMany();
     return articles;
   }
 
+  // 記事を作成
   async createArticle(data: {
     text: string;
     userId: number;
@@ -28,8 +30,12 @@ export class ArticlesService {
     });
   }
 
+  // userIdを元に記事を取得
   async getUserArticles(user_id: number): Promise<Articles[]> {
-    const user = this.usersService.findOne(user_id);
+    const user = this.prisma.users.findUnique({
+      where: { id: user_id },
+      select: { articles: true },
+    });
 
     return (await user).articles;
   }
