@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common';
 import { Articles } from 'interfaces/articles.interfaces';
 import { ArticlesService } from './articles.service';
 
@@ -21,5 +21,14 @@ export class ArticlesController {
   @Post()
   async createArticles(@Body() createArticleDto: Articles): Promise<Articles> {
     return this.articleService.createArticle(createArticleDto);
+  }
+
+  @Put(':id')
+  async UpdateArticle(
+    @Param('id') id: string,
+    @Body() updateArticleDto: { text: string },
+  ) {
+    const article_id = parseInt(id, 10);
+    return this.articleService.updateArticle(article_id, updateArticleDto);
   }
 }

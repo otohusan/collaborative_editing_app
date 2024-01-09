@@ -30,6 +30,17 @@ export class ArticlesService {
     });
   }
 
+  // 記事を更新
+  async updateArticle(
+    article_id: number,
+    data: { text: string },
+  ): Promise<Articles> {
+    return await this.prisma.articles.update({
+      where: { id: article_id },
+      data: { text: data.text },
+    });
+  }
+
   // userIdを元に記事を取得
   async getUserArticles(user_id: number): Promise<Articles[]> {
     const user = this.prisma.users.findUnique({
