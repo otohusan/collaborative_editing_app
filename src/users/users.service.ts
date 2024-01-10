@@ -30,8 +30,9 @@ export class UsersService {
     return user;
   }
 
-  create(user: User) {
-    this.users.push(user);
-    return this.users;
+  async create(user: User) {
+    return await this.prisma.users.create({
+      data: { user_name: user.user_name, hobby: user.hobby },
+    });
   }
 }

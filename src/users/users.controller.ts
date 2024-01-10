@@ -19,7 +19,7 @@ export class UsersController {
   }
 
   @Post()
-  async create(@Body() user: User): Promise<User[]> {
+  async create(@Body() user: User): Promise<User> {
     return this.usersService.create(user);
   }
 }

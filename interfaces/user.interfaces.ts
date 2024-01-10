@@ -4,5 +4,5 @@ export interface User {
   id: number;
   user_name: string;
   hobby: string;
-  articles: Articles[];
+  articles?: Articles[];
 }
