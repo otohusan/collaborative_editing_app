@@ -17,6 +17,14 @@ export class ArticlesService {
     return articles;
   }
 
+  async getOneArticle(article_id: number): Promise<Articles> {
+    const article = await this.prisma.articles.findUnique({
+      where: { id: article_id },
+    });
+
+    return article;
+  }
+
   // 記事を作成
   async createArticle(data: {
     text: string;

@@ -11,6 +11,12 @@ export class ArticlesController {
     return this.articleService.getArticles();
   }
 
+  @Get(':id')
+  async getOneArticle(@Param('id') id: string): Promise<Articles> {
+    const article_id = parseInt(id, 10);
+    return this.articleService.getOneArticle(article_id);
+  }
+
   @Get('user/:id')
   async getUserArticles(@Param('id') id: string): Promise<Articles[]> {
     // paramはstringで取得されるのでnumberに変換する必要がある

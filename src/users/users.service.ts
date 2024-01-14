@@ -31,7 +31,7 @@ export class UsersService {
   }
 
   async create(user: User) {
-    return await this.prisma.users.create({
+    await this.prisma.users.create({
       data: { user_name: user.user_name, hobby: user.hobby },
     });
   }
