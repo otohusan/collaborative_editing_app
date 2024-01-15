@@ -5,4 +5,5 @@ export interface User {
   user_name: string;
   hobby: string;
   articles?: Articles[];
+  password?: string;
 }
