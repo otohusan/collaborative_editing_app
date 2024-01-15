@@ -6,10 +6,11 @@ import { ArticlesController } from './articles/articles.controller';
 import { ArticlesService } from './articles/articles.service';
 import { UsersService } from './users/users.service';
 import { UsersController } from './users/users.controller';
+import { ArticlesGateway } from './app.gateway';
 
 @Module({
   imports: [UsersModule],
   controllers: [AppController, ArticlesController, UsersController],
-  providers: [AppService, ArticlesService, UsersService],
+  providers: [AppService, ArticlesService, UsersService, ArticlesGateway],
 })
 export class AppModule {}

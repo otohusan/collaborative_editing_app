@@ -2,12 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { Articles } from 'interfaces/articles.interfaces';
 import { UsersService } from 'src/users/users.service';
 import { PrismaClient } from '@prisma/client';
+import { ArticlesGateway } from 'src/app.gateway';
 
 @Injectable()
 export class ArticlesService {
   private readonly prisma: PrismaClient;
-
-  constructor(private readonly usersService: UsersService) {
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly articlesGateway: ArticlesGateway,
+  ) {
     this.prisma = new PrismaClient();
   }
 
@@ -42,10 +45,15 @@ export class ArticlesService {
   async updateArticle(
     article_id: number,
     data: { text: string },
-  ): Promise<Articles> {
-    return await this.prisma.articles.update({
+  ): Promise<void> {
+    await this.prisma.articles.update({
       where: { id: article_id },
       data: { text: data.text },
+    });
+
+    this.articlesGateway.notifyArticleUpdated({
+      article_id,
+      article_text: data.text,
     });
   }
 
