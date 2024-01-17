@@ -13,14 +13,11 @@ export class AuthService {
   async signIn(user_name: string, pass: string): Promise<any> {
     const user = await this.usersService.findOneByName(user_name);
     if ((await bcrypt.compare(pass, user?.password)) !== true) {
-      //   throw new UnauthorizedException();
-      return '失敗';
+      throw new UnauthorizedException();
     }
-    // const payload = { sub: user.id, username: user.user_name };
-    // return {
-    //   access_token: await this.jwtService.signAsync(payload),
-    // };
-
-    return 'login 成功';
+    const payload = { sub: user.id, username: user.user_name };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }
